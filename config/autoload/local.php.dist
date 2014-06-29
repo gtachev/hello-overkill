@@ -12,4 +12,9 @@
  */
 
 return array(
+    'db' => array(
+        'dsn' => 'mysql:dbname=dbName;host=dbHost',
+        'username' => 'dbUser',
+        'password' => 'dbPass',
+    ),
 );
