@@ -59,6 +59,9 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'invokables' => array(
+            'AsseticCacheBuster' => 'AsseticBundle\CacheBuster\LastModifiedStrategy',
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
@@ -98,4 +101,5 @@ return array(
             ),
         ),
     ),
+    'assetic_configuration' => (require 'assets.config.php'),
 );
