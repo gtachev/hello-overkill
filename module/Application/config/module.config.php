@@ -101,5 +101,20 @@ return array(
             ),
         ),
     ),
+    'cache_config' => 'cache_config_memcached',
+    'cache_config_memcached' => array(
+        'adapter' => array(
+            'name' => 'memcached',
+            'options' => array(
+                'ttl' => 1800, // 60sec * 30min
+                'servers' => array(
+                    array('127.0.0.1', 11211),
+                ),
+            ),
+        ),
+        'plugins' => array(
+            'exception_handler' => array('throw_exceptions' => false),
+        ),
+    ),
     'assetic_configuration' => (require 'assets.config.php'),
 );

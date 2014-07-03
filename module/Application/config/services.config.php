@@ -13,9 +13,16 @@ return array(
             $dbAdapter = new \Zend\Db\Adapter\Adapter($config['db']);
             return $dbAdapter;
         },
+        'dbCache' => function(ServiceManager $sm){
+            $config = $sm->get('Config');
+            $cacheConfig = $config['cache_config'];
+            $cache = \Zend\Cache\StorageFactory::factory($config[$cacheConfig]);
+            return $cache;
+        },
         'TextTable' => function(ServiceManager $sm) {
             $tableGateway = $sm->get('TextTableGateway');
-            $table = new Model\TextTable($tableGateway);
+            $cache = $sm->get('dbCache');
+            $table = new Model\TextTable($tableGateway, $cache);
             return $table;
         },
         'TextTableGateway' => function (ServiceManager $sm) {
