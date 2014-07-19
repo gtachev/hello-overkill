@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo "Downloading latest composer.phar..."
+
+wget -N https://getcomposer.org/composer.phar
+
+echo "Installing composer dependencies..."
+php composer.phar install
+
 echo "Deleting application cache..."
 rm -rf data/cache/*
 
