@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="hello-overkill" default="help" basedir="." description="">
+
+    <target name="help">
+        <echo message="Run: 'phing build' to build the project" />
+        <echo message="type phing -l for more info" />
+    </target>
+
+    <target name="download-composer" description="Download composer">
+        <echo message="Downloading composer..." />
+        <exec command="php -r &quot;eval('?>'.file_get_contents('https://getcomposer.org/installer'));&quot;" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="composer-install" description="Install dependencies with composer">
+        <echo message="Installing dependencies with composer..." />
+        <exec command="php composer.phar install" passthru="true" checkreturn="true" />
+    </target>
+
+    <target name="delete-cache" description="Delete application cache">
+        <echo message="Deleting application cache..." />
+        <delete>
+            <fileset dir="./" defaultexcludes="false">
+                <include name="data/cache/*" />
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="delete-assets" description="Delete assets">
+        <echo message="Deleting assets..." />
+        <delete>
+            <fileset dir="./" defaultexcludes="false">
+                <include name="public/assets/*" />
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="build-assets" description="Build assets with Assetic Bundle">
+        <echo message="Building assets..." />
+        <exec command="php public/index.php assetic build" checkreturn="true" />
+    </target>
+
+    <target name="build" description="Build the project">
+        <phingCall target="download-composer" />
+        <phingCall target="composer-install" />
+        <phingCall target="delete-cache" />
+        <phingCall target="delete-assets" />
+        <phingCall target="build-assets" />
+        <phingCall target="delete-cache" />
+    </target>
+
+</project>
